@@ -10,51 +10,62 @@ import SwiftUI
 struct Music: View {
     var music: Song
     var body: some View {
-        VStack {
-            Spacer()
-            AsyncImage(url: URL(string: music.cover)) { phase in
-                if let image = phase.image {
-                    image
+        ZStack {
+            LinearGradient(colors: [.blue, .black], startPoint: .top, endPoint: .bottom)
+            VStack {
+                Spacer()
+                AsyncImage(url: URL(string: music.cover)) { phase in
+                    if let image = phase.image {
+                        image
+                            .resizable()
+                            .scaledToFit()
+                    } else if phase.error != nil {
+                        Text("Erro ao carregar imagem!")
+                    } else {
+                        ProgressView()
+                    }
+                }
+                .frame(width: 250)
+                Text(music.name)
+                    .foregroundColor(.white)
+                Text(music.artist)
+                    .foregroundColor(.white)
+                Spacer()
+                HStack {
+                    Image(systemName: "shuffle")
                         .resizable()
                         .scaledToFit()
-                } else if phase.error != nil {
-                    Text("Erro ao carregar imagem!")
-                } else {
-                    ProgressView()
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
+                        .foregroundColor(.white)
+                    Image(systemName: "backward.end.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
+                        .foregroundColor(.white)
+                    Image(systemName: "play.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
+                        .foregroundColor(.white)
+                    Image(systemName: "forward.end.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
+                        .foregroundColor(.white)
+                    Image(systemName: "repeat")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
+                        .foregroundColor(.white)
                 }
+                Spacer()
             }
-            .frame(width: 250)
-            Text(music.name)
-            Text(music.artist)
-            Spacer()
-            HStack {
-                Image(systemName: "shuffle")
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
-                Image(systemName: "backward.end.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
-                Image(systemName: "play.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
-                Image(systemName: "forward.end.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
-                Image(systemName: "repeat")
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
-            }
-            Spacer()
         }
+        .ignoresSafeArea()
     }
 }
